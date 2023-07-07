@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { TodosModule } from './todos/todos.module';
 
@@ -8,6 +8,7 @@ import { FooterComponent } from './footer/footer.component';
 
 //* ngRx
 import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { todoReducer } from './todos/todo.reducer';
 
 @NgModule({
@@ -20,6 +21,7 @@ import { todoReducer } from './todos/todo.reducer';
     AppRoutingModule,
     TodosModule,
     StoreModule.forRoot({todos: todoReducer}),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   ],
   providers: [],
   bootstrap: [AppComponent]
