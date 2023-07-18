@@ -43,4 +43,7 @@ export const todoReducer = createReducer(
       }
     });
   }),
+  //* el método filter de los arreglos nos devuelve un nuevo arreglo, por lo que podemos emplearlo
+  //* para encontrar un valor dentro de un arreglo
+  on(actions.deleteTodo, (state, {id}) =>  state.filter(todo => todo.id !== id)),
 );
