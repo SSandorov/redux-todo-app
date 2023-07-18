@@ -38,6 +38,10 @@ export class TodoItemComponent implements OnInit{
   editing() {
     this.edit = true;
 
+    //* cuando borramos el texto del input y salimos, la siguiente vez que clicamos el input
+    //* no hay texto presente, así que lo podemos arreglar de la siguiente manera
+    this.textInput.setValue(this.todo.text);
+
     // Se ejecuta tan rápido que debemos añadirle un delay
     setTimeout(() => {
       this.txtInputF.nativeElement.select();
@@ -48,5 +52,15 @@ export class TodoItemComponent implements OnInit{
 
   finishEdit() {
     this.edit = false;
+
+    // si el campo no tiene ningún valor, no tiene que devolver nada
+    if (this.textInput.invalid) {return;}
+    // si el texto del campo es el mismo que el todo, no tiene que devolver nada
+    if (this.textInput.value === this.todo.text) {return;}
+
+    this.store.dispatch(actions.editTodo({
+      id: this.todo.id,
+      text: this.textInput.value
+    }));
   }
 }

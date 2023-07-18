@@ -31,4 +31,16 @@ export const todoReducer = createReducer(
       // / todo.completed = !todo.completed;
     });
   }),
+  on(actions.editTodo, (state, {id, text}) => {
+    return state.map(todo => {
+      if (todo.id === id) {
+        return {
+          ...todo, // trae todas las propiedades del todo del estado actual
+          text: text
+        }
+      }  else {
+        return todo;
+      }
+    });
+  }),
 );
