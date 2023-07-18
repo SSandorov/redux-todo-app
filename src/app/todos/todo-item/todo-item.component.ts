@@ -1,6 +1,9 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Todo } from '../models/todo.model';
 import { FormControl, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/app.reducer';
+import * as actions from '../todo.actions';
 
 @Component({
   selector: 'app-todo-item',
@@ -15,11 +18,16 @@ export class TodoItemComponent implements OnInit{
   textInput!: FormControl;
   edit: boolean = false;
 
+  constructor(private store: Store<AppState>) {}
+
   ngOnInit() {
 
     this.checkCompleted = new FormControl(this.todo.completed);
     this.textInput = new FormControl(this.todo.text, Validators.required);
 
+    this.checkCompleted.valueChanges.subscribe(val => {
+      this.store.dispatch(actions.toggleTodo({id: this.todo.id}));
+    });
 
     //! No funciona hoy en día, hay que cambiar el modelo de la clase Todo
     //! esto ocurre porque NgRx se ha vuelto más estricto y no permite mutar los

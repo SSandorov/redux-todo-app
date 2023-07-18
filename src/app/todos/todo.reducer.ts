@@ -13,5 +13,22 @@ export const todoReducer = createReducer(
   initialState,
   //! Hay que evitar mutar el estado, por lo que no podemos emplear el push()
   on(actions.addTodo, (state, {text}) => [...state, new Todo(text)]),
-
+  on(actions.toggleTodo, (state, {id}) => {
+    //* el método map() crea un nuevo arreglo, por lo que no estamos modificando el estado
+    return state.map(todo => {
+      //* devolvemos un nuevo objeto para no mutar el todo del estado actual
+      if (todo.id === id) {
+        return {
+          //* el operador spread en este caso nos mantiene el valor actual de las propiedades del
+          //* objeto, y sólo cambiamos aquellas propiedades que queramos
+          ...todo, // trae todas las propiedades del todo del estado actual
+          completed: !todo.completed
+        }
+      }  else {
+        return todo;
+      }
+      //* Tenemos que tener cuidado de no mutar nuestro objeto todo, por lo que no podemos hacerlo así
+      // / todo.completed = !todo.completed;
+    });
+  }),
 );
