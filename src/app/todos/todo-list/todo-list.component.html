@@ -1,4 +1,5 @@
 <ul class="todo-list">
-  <app-todo-item *ngFor="let todo of todos"
+  <!--* Empleamos los pipes ya que no mutan los datos -->
+  <app-todo-item *ngFor="let todo of todos | filterTodos:actualFilter"
                   [todo]="todo"></app-todo-item>
 </ul>
