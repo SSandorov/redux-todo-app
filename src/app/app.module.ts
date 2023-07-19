@@ -9,7 +9,7 @@ import { FooterComponent } from './footer/footer.component';
 //* ngRx
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { todoReducer } from './todos/todo.reducer';
+import { appReducers } from './app.reducer';
 
 import { TodosModule } from './todos/todos.module';
 
@@ -23,7 +23,7 @@ import { TodosModule } from './todos/todos.module';
     ReactiveFormsModule,
     AppRoutingModule,
     TodosModule,
-    StoreModule.forRoot({todos: todoReducer}),
+    StoreModule.forRoot(appReducers),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   ],
   providers: [],
