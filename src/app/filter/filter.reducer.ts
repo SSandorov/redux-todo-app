@@ -8,5 +8,5 @@ export const initialState: actions.validFilters = 'all';
 export const filterReducer = createReducer<actions.validFilters>(
   initialState,
 
-  on(actions.setFilter, (state, {filter}) => filter)
+  on(actions.setFilter, (state, {filter}) => filter),
 );
